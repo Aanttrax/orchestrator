@@ -1,3 +1,5 @@
+import Auth from '@routes/auth.routes';
+
 export default {
-  allRoutes: [],
+  allRoutes: [Auth],
 };
