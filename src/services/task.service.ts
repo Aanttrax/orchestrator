@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '@env/environment';
-import { IResponseCreateTask, IResponseGetTask, IResponseGetTasks } from '@interfaces/taskServiceResponse.interface';
 import { Task } from '@interfaces/task.interface';
+import { IResponseCreateTask, IResponseGetTask, IResponseGetTasks } from '@interfaces/taskServiceResponse.interface';
 
 const { SERVICE_TASK } = environment;
 
