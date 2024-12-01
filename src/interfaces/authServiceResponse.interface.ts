@@ -1,4 +1,8 @@
 export interface IResponseAuthService {
-  success: boolean;
-  response: string;
+  readonly success: boolean;
+  readonly response: string;
+}
+
+export interface IResponseIsAuthenticated extends Pick<IResponseAuthService, 'success'> {
+  readonly response: boolean;
 }
