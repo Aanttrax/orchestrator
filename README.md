@@ -145,8 +145,6 @@ This repository is an orchestrator coordinating two **microservices:** one for *
               "title": ".......",
               "description": "....",
               "done": false,
-              "createdAt": "2024-11-29T20:00:39.834Z",
-              "updatedAt": "2024-11-29T20:20:01.548Z"
             }
          ]
         }
@@ -167,8 +165,6 @@ This repository is an orchestrator coordinating two **microservices:** one for *
               "title": ".......",
               "description": "....",
               "done": false,
-              "createdAt": "2024-11-29T20:00:39.834Z",
-              "updatedAt": "2024-11-29T20:20:01.548Z"
             }
         }
         ```
