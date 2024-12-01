@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
+import { headersMiddleware } from '@middleware/headers.middleware';
 
 const { PORT, HOST } = environment;
 
@@ -12,7 +13,7 @@ const corsOptions = {
   origin: '*',
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
-  // exposedHeaders: ['auth-token']
+  exposedHeaders: ['auth-token'],
 };
 
 export default (routes: Routes) => {
@@ -25,6 +26,7 @@ export default (routes: Routes) => {
   app.use(express.urlencoded({ extended: true }));
   app.use(compression({ filter: () => true }));
   app.use(cors(corsOptions));
+  app.use(headersMiddleware);
 
   //test alive
   app.use('/alive', (_req: Request, res: Response, next: NextFunction) => {
