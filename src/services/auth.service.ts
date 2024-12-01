@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { environment } from '@env/environment';
 import { LoginData } from '@interfaces/loginData.interface';
 import { RegisterData } from '@interfaces/registerData.interface';
-import { IResponseAuthService } from '@interfaces/authServiceResponse.interface';
+import { IResponseAuthService, IResponseIsAuthenticated } from '@interfaces/authServiceResponse.interface';
 
 const { SERVICE_AUTH } = environment;
 
@@ -44,7 +44,33 @@ const signIn = async (loginData: LoginData): Promise<string> => {
   }
 };
 
+const isAuthenticated = async (token: string): Promise<boolean> => {
+  const headers = {
+    'auth-token': token,
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    const infoIsAuthenticated: AxiosResponse<IResponseIsAuthenticated> = await axios.get(
+      `${SERVICE_AUTH}isauthenticated`,
+      { headers }
+    );
+    const { data } = infoIsAuthenticated;
+    if (!data.success) throw data.response;
+    return data.response;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error('\x1b[31m%s\x1b[0m', '❌ Error: ', error.response?.data?.error || error.message || error.response);
+      error.message = error.response?.data?.error || error.message || error.response;
+    } else {
+      console.error('\x1b[31m%s\x1b[0m', '❌ An unknown error was thrown. ', error);
+    }
+    throw error;
+  }
+};
+
 export default {
   signUp,
   signIn,
+  isAuthenticated,
 };
