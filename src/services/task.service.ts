@@ -5,9 +5,15 @@ import { IResponseCreateTask, IResponseGetTask, IResponseGetTasks } from '@inter
 
 const { SERVICE_TASK } = environment;
 
-const createTask = async (task: Task): Promise<void> => {
+const createTask = async (task: Task, token: string): Promise<void> => {
+  const headers = {
+    'auth-token': token,
+    'Content-Type': 'application/json',
+  };
   try {
-    const infoCreateTask: AxiosResponse<IResponseCreateTask> = await axios.post(`${SERVICE_TASK}task`, task);
+    const infoCreateTask: AxiosResponse<IResponseCreateTask> = await axios.post(`${SERVICE_TASK}task`, task, {
+      headers,
+    });
     const { data } = infoCreateTask;
     if (!data.success) throw data.response;
     return;
@@ -22,9 +28,13 @@ const createTask = async (task: Task): Promise<void> => {
   }
 };
 
-const getTasks = async (): Promise<Task[]> => {
+const getTasks = async (token: string): Promise<Task[]> => {
+  const headers = {
+    'auth-token': token,
+    'Content-Type': 'application/json',
+  };
   try {
-    const infoGetTasks: AxiosResponse<IResponseGetTasks> = await axios.get(`${SERVICE_TASK}task`);
+    const infoGetTasks: AxiosResponse<IResponseGetTasks> = await axios.get(`${SERVICE_TASK}task`, { headers });
     const { data } = infoGetTasks;
     if (!data.success) throw data.response;
     return data.response;
@@ -56,9 +66,15 @@ const getTaskById = async (taskId: string): Promise<Task> => {
   }
 };
 
-const updateTask = async (taskId: string, task: Task): Promise<void> => {
+const updateTask = async (taskId: string, task: Task, token: string): Promise<void> => {
+  const headers = {
+    'auth-token': token,
+    'Content-Type': 'application/json',
+  };
   try {
-    const infoUpdateTask: AxiosResponse<IResponseCreateTask> = await axios.put(`${SERVICE_TASK}task/${taskId}`, task);
+    const infoUpdateTask: AxiosResponse<IResponseCreateTask> = await axios.put(`${SERVICE_TASK}task/${taskId}`, task, {
+      headers,
+    });
     const { data } = infoUpdateTask;
     if (!data.success) throw data.response;
     return;
